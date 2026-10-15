@@ -4,6 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    :root {
+      color: #2b2927;
+      background: #e8e1d9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      --ink: #2b2927;
+      --muted: #81766b;
+      --paper: #e8e1d9;
+      --cream: #f5f0e9;
+      --line: rgb(43 41 39 / 22%);
+      --accent: #66574a;
+      scroll-padding-top: 2.5rem;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e8e1d9;
+    }
+
+    body:has(.poem-dialog[open]) {
+      overflow: hidden;
+    }
+
+    .portrait-rail {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      background:
+        linear-gradient(180deg, rgb(43 41 39 / 52%), rgb(43 41 39 / 88%)),
+        url("public/rigoberto.jpeg") center 20% / cover no-repeat;
+      border: 0;
+    }
+
+    .portrait-rail::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgb(43 41 39 / 24%), transparent 45%, rgb(43 41 39 / 28%)),
+        linear-gradient(0deg, rgb(43 41 39 / 64%), transparent 45%);
+      content: "";
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 4rem);
+      background: rgb(43 41 39 /100%);
+      border-bottom: 1px solid rgb(255 255 255 / 18%);
+      color: #fff;
+    }
+
+    .topbar-brand {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 0.45rem;
+      background: transparent;
+      border: 1px solid rgb(255 255 255 / 35%);
+      border-radius: 0.25rem;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      background: rgb(255 255 255 / 12%);
+    }
+
+    .topbar nav {
+      margin: 0;
+      margin-left: auto;
+      justify-content: flex-end;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      margin-left: 0;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 8rem 1.5rem 6rem;
+      text-align: center;
+      isolation: isolate;
+      overflow: hidden;
+      background: transparent;
+      color: #fff;
+      border-bottom: 0.5rem solid #fff;
+    }
+
+    header::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 30%;
+      background: linear-gradient(transparent, rgb(27 25 23 / 75%));
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+      font-size: 0.95rem;
+    }
+
+    header nav {
+      display: none;
+    }
+
+    nav a {
+      color: #e8e1d9;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #cdbda9;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.5rem;
+      color: #cdbda9;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1100px;
+      margin: 0;
+      font-size: clamp(1.5rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .subtitle {
+      max-width: 32rem;
+      margin: 2rem 0 0;
+      color: #e8e1d9;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.35;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 5rem;
+    }
+
+    article {
+      display: block;
+    }
+
+    section {
+      position: relative;
+      margin: 0;
+      scroll-margin-top: 2.5rem;
+      padding: clamp(3.5rem, 7vw, 5rem) 0;
+      border-bottom: 1px solid rgb(255 255 255 / 24%);
+      background: transparent;
+      color: #f5f0e9;
+    }
+
+    section h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    section h3 {
+      margin: 2.5rem 0 0.75rem;
+    }
+
+    section p,
+    section li,
+    section dd {
+      font-size: 1rem;
+    }
+
+    section dt {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+</style>
 </head>
 <body>
   <aside class="portrait-rail" aria-label="Retrato de Rigoberto López Pérez"></aside>
