@@ -5,14 +5,807 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
   <title>Rigoberto López Pérez</title>
-  <style>
+    <style>
+    :root {
+      color: #2b2927;
+      background: #e8e1d9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      --ink: #2b2927;
+      --muted: #81766b;
+      --paper: #e8e1d9;
+      --cream: #f5f0e9;
+      --line: rgb(43 41 39 / 22%);
+      --accent: #66574a;
+      scroll-padding-top: 2.5rem;
+    }
 
-  </style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e8e1d9;
+    }
+
+    body:has(.poem-dialog[open]) {
+      overflow: hidden;
+    }
+
+    .portrait-rail {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      background:
+        linear-gradient(180deg, rgb(43 41 39 / 52%), rgb(43 41 39 / 88%)),
+        url("public/rigoberto.jpeg") center 20% / cover no-repeat;
+      border: 0;
+    }
+
+    .portrait-rail::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgb(43 41 39 / 24%), transparent 45%, rgb(43 41 39 / 28%)),
+        linear-gradient(0deg, rgb(43 41 39 / 64%), transparent 45%);
+      content: "";
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 4rem);
+      background: rgb(43 41 39 /100%);
+      border-bottom: 1px solid rgb(255 255 255 / 18%);
+      color: #fff;
+    }
+
+    .topbar-brand {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 0.45rem;
+      background: transparent;
+      border: 1px solid rgb(255 255 255 / 35%);
+      border-radius: 0.25rem;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      background: rgb(255 255 255 / 12%);
+    }
+
+    .topbar nav {
+      margin: 0;
+      margin-left: auto;
+      justify-content: flex-end;
+    }
+
+    header {
+      position: relative;
+      z-index: 1;
+      margin-left: 0;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 8rem 1.5rem 6rem;
+      text-align: center;
+      isolation: isolate;
+      overflow: hidden;
+      background: transparent;
+      color: #fff;
+      border-bottom: 0.5rem solid #fff;
+    }
+
+    header::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 30%;
+      background: linear-gradient(transparent, rgb(27 25 23 / 75%));
+      content: "";
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+      font-size: 0.95rem;
+    }
+
+    header nav {
+      display: none;
+    }
+
+    nav a {
+      color: #e8e1d9;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: #cdbda9;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.5rem;
+      color: #cdbda9;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1100px;
+      margin: 0;
+      font-size: clamp(1.5rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.08em;
+    }
+
+    .subtitle {
+      max-width: 32rem;
+      margin: 2rem 0 0;
+      color: #e8e1d9;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.35;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 5rem;
+    }
+
+    article {
+      display: block;
+    }
+
+    section {
+      position: relative;
+      margin: 0;
+      scroll-margin-top: 2.5rem;
+      padding: clamp(3.5rem, 7vw, 5rem) 0;
+      border-bottom: 1px solid rgb(255 255 255 / 24%);
+      background: transparent;
+      color: #f5f0e9;
+    }
+
+    section h2 {
+      margin-bottom: 1.5rem;
+    }
+
+    section h3 {
+      margin: 2.5rem 0 0.75rem;
+    }
+
+    section p,
+    section li,
+    section dd {
+      font-size: 1rem;
+    }
+
+    section dt {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+        .js section {
+      opacity: 0;
+      transform: translateY(2.5rem);
+      transition: opacity 900ms ease, transform 900ms ease;
+    }
+
+    .js section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .js section.is-visible > * {
+      animation: reveal-content 700ms both;
+    }
+
+    .js section.is-visible > *:nth-child(2) {
+      animation-delay: 120ms;
+    }
+
+    .js section.is-visible > *:nth-child(3) {
+      animation-delay: 220ms;
+    }
+
+    .js section.is-visible > *:nth-child(4) {
+      animation-delay: 320ms;
+    }
+
+    @keyframes reveal-content {
+      from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #presentacion {
+      min-height: auto;
+      padding-top: clamp(4rem, 8vw, 6rem);
+      border-bottom: 0;
+    }
+
+    #presentacion p {
+      max-width: 48rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+    }
+
+    #vida {
+      display: block;
+    }
+
+    #trayectoria ol {
+      display: flex;
+      gap: 0;
+      max-width: none;
+      margin: 0;
+      padding: 3rem 0 2rem;
+      overflow-x: auto;
+      list-style: none;
+      scroll-behavior: smooth;
+      scrollbar-color: #d8cec3 rgb(255 255 255 / 18%);
+      scrollbar-width: thin;
+    }
+
+    #trayectoria li {
+      position: relative;
+      flex: 0 0 clamp(16rem, 30vw, 22rem);
+      min-height: 15rem;
+      padding: 2.5rem 2rem 1rem 0;
+      border: 0;
+      border-top: 2px solid rgb(255 255 255 / 62%);
+    }
+
+
+    #trayectoria li::before {
+      position: absolute;
+      top: -0.55rem;
+      left: 0;
+      width: 0.9rem;
+      height: 0.9rem;
+      border: 3px solid #e8e1d9;
+      border-radius: 50%;
+      background: #66574a;
+      content: "";
+    }
+
+    #trayectoria li strong {
+      display: block;
+      margin-bottom: 1rem;
+      color: #e8c99d;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
+      line-height: 1.1;
+    }
+
+    #poeta {
+      display: block;
+    }
+
+    #poeta h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+    }
+
+    .poem-gallery {
+      display: flex;
+      gap: 2rem;
+      margin: 3rem -1rem 0;
+      padding: 0 1rem 2rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-color: #d8cec3 rgb(255 255 255 / 18%);
+      scrollbar-width: thin;
+    }
+
+    .poem-piece {
+      position: relative;
+      flex: 0 0 clamp(18rem, 42vw, 28rem);
+      min-height: 32rem;
+      margin: 0;
+      scroll-snap-align: start;
+      isolation: isolate;
+    }
+
+    .poem-open {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .poem-piece img {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      filter: sepia(0.1) saturate(0.9);
+    }
+
+    .poem-piece::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(180deg, rgb(43 41 39 / 12%), rgb(43 41 39 / 28%));
+      content: "";
+    }
+
+    .poem-piece figcaption {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 3rem;
+      color: #2b2927;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      text-align: center;
+      text-shadow: 0 1px 1px rgb(255 255 255 / 45%);
+    }
+
+    .poem-open:focus-visible {
+      outline: 3px solid #e8c99d;
+      outline-offset: 6px;
+    }
+
+    .poem-dialog {
+      width: min(42rem, calc(100% - 2rem));
+      max-height: 90vh;
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      background: transparent;
+      color: #2b2927;
+    }
+
+    .poem-dialog::backdrop {
+      background: rgb(0 0 0 / 76%);
+    }
+
+    .poem-dialog-content {
+      position: relative;
+      min-height: 54rem;
+      padding: clamp(4rem, 8vw, 6rem) clamp(3rem, 9vw, 6rem);
+      background:
+        url("public/paperofpoem.webp") center / 100% 100% no-repeat;
+    }
+
+    .poem-dialog-paper {
+      display: none;
+    }
+
+    .poem-dialog[open] .poem-dialog-content {
+      animation: paper-zoom 500ms cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+    }
+
+    @keyframes paper-zoom {
+      from {
+        opacity: 0;
+        transform: scale(0.72);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .poem-dialog h2 {
+      color: #2b2927;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1;
+      text-align: center;
+    }
+
+    .poem-text {
+      max-width: 30rem;
+      margin: 2rem auto;
+      white-space: pre-line;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .poem-close {
+      float: right;
+      padding: 0.35rem 0.65rem;
+      border: 1px solid #81766b;
+      background: transparent;
+      color: #2b2927;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #actividad-politica {
+      max-width: none;
+    }
+
+    #accion-de-1956 {
+      padding-top: clamp(3.5rem, 7vw, 5rem);
+      background: transparent;
+      color: #fff;
+    }
+
+    #accion-de-1956 h2,
+    #accion-de-1956 h3,
+    #reconocimiento h2,
+    #reconocimiento h3 {
+      color: #fff;
+    }
+
+    #carta {
+      max-width: none;
+      background: transparent;
+    }
+
+    #carta blockquote {
+      max-width: 49rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+    #frase {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    #reconocimiento {
+      background: transparent;
+      color: #fff;
+    }
+
+    #reconocimiento p {
+      max-width: 46rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    h3 {
+      margin-top: 2rem;
+      color: #d8cec3;
+      font-size: 1.125rem;
+    }
+
+    a {
+      color: #e8c99d;
+      font-weight: bold;
+    }
+
+    #presentacion h2,
+    #vida h2,
+    #trayectoria h2,
+    #poeta h2,
+    #actividad-politica h2,
+    #accion-de-1956 h2,
+    #carta h2,
+    #reconocimiento h2 {
+      color: #fff;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.65rem;
+    }
+
+    blockquote {
+      margin: 2rem 0 0;
+      padding: 1.5rem;
+      border-left: 3px solid #e8c99d;
+      background: rgb(43 41 39 / 35%);
+      font-size: 1.125rem;
+    }
+
+    blockquote p {
+      margin-top: 0;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-left: 0;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: rgb(43 41 39 / 72%);
+      color: #fff;
+      font-size: 1rem;
+      border-top: 0.5rem solid #fff;
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        scroll-padding-top: 3.5rem;
+      }
+
+      .portrait-rail {
+        opacity: 1;
+        border: 0;
+      }
+
+      .portrait-rail::after {
+        background:
+          linear-gradient(180deg, rgb(43 41 39 / 40%), rgb(43 41 39 / 88%)),
+          linear-gradient(90deg, rgb(43 41 39 / 20%), transparent);
+      }
+
+      .topbar {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .topbar nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+
+      .topbar.nav-open nav {
+        display: flex;
+      }
+
+      .topbar nav a {
+        padding: 0.65rem 0;
+        width: 100%;
+      }
+
+      header {
+        margin-left: 0;
+        min-height: 70vh;
+        padding-top: 4rem;
+        background: transparent;
+      }
+
+      nav {
+        margin-bottom: 4rem;
+      }
+
+      #vida,
+      #poeta {
+        display: block;
+      }
+
+      section {
+        scroll-margin-top: 3.5rem;
+        padding: 3.5rem 0;
+      }
+
+      .poem-dialog {
+        width: calc(100% - 1rem);
+        max-height: 92vh;
+      }
+
+      .poem-dialog-content {
+        min-height: 48rem;
+        padding: 4rem 2.25rem;
+      }
+
+    }
+  
+</style>
 </head>
 <body>
+  <aside class="portrait-rail" aria-label="Retrato de Rigoberto López Pérez"></aside>
 
+  <div class="topbar">
+    <a class="topbar-brand" href="index.html">Rigoberto López Pérez</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">
+      <span aria-hidden="true">☰</span>
+    </button>
+    <nav id="main-navigation" aria-label="Navegación principal">
+      <a href="index.html#presentacion">Presentación</a>
+      <a href="index.html#vida">Vida</a>
+      <a href="index.html#poeta">Poesía</a>
+      <a href="index.html#accion-de-1956">1956</a>
+      <a href="index.html#carta">Carta</a>
+      <a href="index.html#reconocimiento">Legado</a>
+      <a href="poems.html">Poemas</a>
+    </nav>
+  </div>
+
+  <header>
+    <p class="eyebrow">León, Nicaragua · 1929–1956</p>
+    <h1>Pascual Rigoberto López Pérez</h1>
+    <p class="subtitle">Poeta nicaragüense y Héroe Nacional de Nicaragua.</p>
+  </header>
+
+  <main>
+    <article>
+      <section id="presentacion" data-number="01">
+        <h2>Quién fue Rigoberto López Pérez</h2>
+        <p>Rigoberto López Pérez fue un poeta nicaragüense, nacido en la ciudad de León, cuya vida estuvo vinculada a la literatura, la escritura, la música, la poesía y la actividad política.</p>
+        <p>Su nombre completo era Pascual Rigoberto López Pérez. Nació el 13 de mayo de 1929 en el barrio El Calvario de León, Nicaragua. Fue hijo de Soledad López y Francisco Pérez.</p>
+      </section>
+
+      <section id="vida" data-number="02">
+        <h2>Su vida y formación</h2>
+        <p>Rigoberto cursó sus primeros estudios en el Hospicio de San Juan de Dios. En ese mismo lugar aprendió el oficio de sastre. Más adelante estudió redacción y taquimecanografía en la Escuela de Comercio Silviano Matamoros.</p>
+        <p>Desde joven mostró interés por la literatura, la escritura, la música y la poesía. A los 17 años, en 1946, escribió <cite>Confesión de un soldado</cite>.</p>
+
+        <h3>Datos personales</h3>
+        <ul>
+          <li><strong>Nombre:</strong> Pascual Rigoberto López Pérez.</li>
+          <li><strong>Nacimiento:</strong> 13 de mayo de 1929.</li>
+          <li><strong>Lugar:</strong> Barrio El Calvario, León, Nicaragua.</li>
+          <li><strong>Madre:</strong> Soledad López.</li>
+          <li><strong>Padre:</strong> Francisco Pérez.</li>
+          <li><strong>Oficio:</strong> Sastre.</li>
+          <li><strong>Intereses:</strong> Literatura, escritura, música y poesía.</li>
+          <li><strong>Fallecimiento:</strong> 21 de septiembre de 1956, a los 27 años.</li>
+        </ul>
+      </section>
+
+      <section id="trayectoria" data-number="03">
+        <h2>Su trayectoria</h2>
+        <ol id="timeline-list">
+          <li><strong>1929:</strong> Nació en el barrio El Calvario de León.</li>
+          <li><strong>Etapa escolar:</strong> Estudió en el Hospicio de San Juan de Dios.</li>
+          <li><strong>Formación laboral:</strong> Aprendió sastrería y estudió redacción y taquimecanografía.</li>
+          <li><strong>1946:</strong> Escribió <cite>Confesión de un soldado</cite>.</li>
+          <li><strong>1951-1956:</strong> Residió en el extranjero y realizó viajes frecuentes a Nicaragua.</li>
+          <li><strong>1956:</strong> Redactó su carta-testamento en San Salvador.</li>
+          <li><strong>21 de septiembre de 1956:</strong> Murió en León después de la acción en la Casa del Obrero.</li>
+        </ol>
+      </section>
+
+            <section id="poeta" data-number="04">
+        <h2>Rigoberto, poeta y compositor</h2>
+        <p>Rigoberto desarrolló su sensibilidad artística mediante la poesía, la escritura y la música. Sus textos y composiciones reflejaron sus sentimientos, sus preocupaciones y su compromiso con Nicaragua.</p>
+        <p><a href="poems.html">Leer los poemas completos</a></p>
+      </section>
+
+      <section id="actividad-politica" data-number="05">
+        <h2>Su actividad política</h2>
+        <p>Rigoberto se afilió al Partido Liberal Independiente (PLI), formado por disidentes del Partido Liberal Nacionalista (PLN), con ayuda de José Constantino González.</p>
+        <p>Entre 1951 y 1956 residió en el extranjero y realizó viajes frecuentes a Nicaragua. Durante esos años mantuvo contacto con personas vinculadas a la oposición y continuó preparando su regreso y su acción política.</p>
+        <p>Su participación política estuvo vinculada con su oposición al régimen somocista y con su compromiso por la libertad de Nicaragua.</p>
+      </section>
+
+      <section id="accion-de-1956" data-number="06">
+        <h2>La acción del 21 de septiembre de 1956</h2>
+        <p>El 21 de septiembre de 1956, en la Casa del Obrero de León, se celebraba una fiesta relacionada con la postulación de una nueva candidatura de Anastasio Somoza García. Rigoberto se infiltró en el lugar y le disparó cinco veces con un revólver calibre .38.</p>
+        <p>Después de la acción, Rigoberto cayó abatido al recibir más de 150 disparos de la custodia. Tenía 27 años.</p>
+        <p>Anastasio Somoza García fue trasladado al Hospital Gorgas de Panamá, donde falleció el 29 de septiembre de 1956.</p>
+        <p>Según la versión recogida por el teniente Agustín Torres Lazo en <cite>La saga de los Somoza</cite>, el cuerpo de Rigoberto fue trasladado a Managua y sepultado en el actual Recinto Universitario Rubén Darío de la UNAN-Managua.</p>
+      </section>
+
+      <section id="carta" data-number="07">
+        <h2>La carta a su madre</h2>
+        <p>El 4 de septiembre de 1956, en San Salvador, Rigoberto escribió una carta-testamento dirigida a su madre, Soledad López.</p>
+        <p>En ella dejó instrucciones sobre una póliza de vida y pidió que una parte del dinero fuera entregada a Dina Andrade para que pudiera terminar sus estudios.</p>
+        <blockquote>
+          <p id="frase">«Mi muerte no ha sido un sacrificio, sino un deber que espero haber cumplido».</p>
+          <cite>Rigoberto López Pérez</cite>
+        </blockquote>
+        <p><a href="carta.html">Leer la carta-testamento completa</a></p>
+      </section>
+
+      <section id="reconocimiento" data-number="08">
+        <h2>Su reconocimiento nacional</h2>
+        <p>El Decreto No. 825 fue acordado por la Junta de Gobierno de Reconstrucción Nacional el 26 de agosto de 1981, aprobado por el Consejo de Estado el 10 de septiembre de 1981 y publicado en <cite>La Gaceta</cite>, Diario Oficial No. 218, el 28 de septiembre de 1981.</p>
+        <p>En el marco del 25.º aniversario de su muerte, el decreto otorgó oficialmente a Rigoberto López Pérez el título de <strong>Héroe Nacional de Nicaragua</strong>.</p>
+        <p>Es recordado como poeta nicaragüense y como autor de <cite>Confesión de un soldado</cite>. Su nacimiento y su muerte son conmemorados en actividades institucionales y educativas del país.</p>
+      </section>
+    </article>
+  </main>
+    <footer>
+    <p>Made </p>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add("js");
+
+    const sections = document.querySelectorAll("main section");
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    sections.forEach((section) => revealObserver.observe(section));
+
+  </script>
+  <script>
+    const topbar = document.querySelector(".topbar");
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    });
+
+    topbar.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      }
+    });
+  </script>
 </body>
-<script>
-    
-</script>
 </html>

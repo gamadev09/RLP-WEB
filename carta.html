@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+QLD+Hand:wght@400..700&display=swap" rel="stylesheet">
+  <title>Carta-testamento de Rigoberto López Pérez</title>
+  <style>
+    :root {
+      color: #282421;
+      background: #8b8179;
+      font-family: "Edu QLD Hand", cursive;
+      line-height: 1.7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+      min-width: 320px;
+      margin: 0;
+      background: #756b64;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: 0;
+      inset: -2rem;
+      background:
+        linear-gradient(rgb(58 51 46 / 58%), rgb(58 51 46 / 58%)),
+        url("public/rigoberto.jpeg") center / cover no-repeat;
+      content: "";
+      filter: blur(14px);
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 4rem);
+      background: rgb(43 41 39 /100%);
+      border-bottom: 1px solid rgb(255 255 255 / 18%);
+      color: #fff;
+    }
+
+    .topbar-brand {
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 0.45rem;
+      background: transparent;
+      border: 1px solid rgb(255 255 255 / 35%);
+      border-radius: 0.25rem;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      background: rgb(255 255 255 / 12%);
+    }
+
+    .topbar nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1.25rem;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .topbar a {
+      color: #e8e1d9;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .topbar a:hover,
+    .topbar a:focus {
+      color: #cdbda9;
+    }
+
+    .letter-stage {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 7rem 1rem 4rem;
+      overflow: hidden;
+    }
+
+    .letter-stage::before,
+    .letter-stage::after {
+      position: absolute;
+      z-index: 0;
+      width: min(42rem, 80vw);
+      height: 58rem;
+      background: #eee9e2;
+      box-shadow: 0 1rem 2rem rgb(0 0 0 / 18%);
+      content: "";
+    }
+
+    .letter-stage::before {
+      top: -7rem;
+      left: calc(50% - 20rem);
+      transform: rotate(-10deg);
+    }
+
+    .letter-stage::after {
+      right: calc(50% - 20rem);
+      bottom: -8rem;
+      transform: rotate(9deg);
+    }
+
+    .letter-paper {
+      position: relative;
+      z-index: 1;
+      width: min(42rem, 100%);
+      margin: 0 auto;
+      padding: clamp(2rem, 6vw, 4.5rem);
+      background: #fff;
+      border: 1px solid #1d1b19;
+      box-shadow: 0 1.2rem 2rem rgb(0 0 0 / 28%);
+    }
+
+    .letter-heading {
+      margin: 0 0 2.5rem;
+      font-family: "Edu QLD Hand", cursive;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .letter-date,
+    .letter-address {
+      margin-bottom: 2rem;
+    }
+
+    .letter-body {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+    }
+
+    .letter-body p {
+      margin: 0 0 1.5rem;
+    }
+
+    .letter-signature {
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .topbar nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+
+      .topbar.nav-open nav {
+        display: flex;
+      }
+
+      .topbar nav a {
+        padding: 0.65rem 0;
+      }
+
+      .letter-stage {
+        padding: 8rem 0.5rem 3rem;
+      }
+
+      .letter-stage::before,
+      .letter-stage::after {
+        display: none;
+      }
+
+      .letter-paper {
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+  </style>
+</head>
+<body>
+    <div class="topbar">
+    <a class="topbar-brand" href="index.html">Rigoberto López Pérez</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">
+      <span aria-hidden="true">☰</span>
+    </button>
+    <nav id="main-navigation" aria-label="Navegación principal">
+      <a href="index.html#presentacion">Presentación</a>
+      <a href="index.html#vida">Vida</a>
+      <a href="index.html#poeta">Poesía</a>
+      <a href="index.html#accion-de-1956">1956</a>
+      <a href="index.html#carta">Carta</a>
+      <a href="index.html#reconocimiento">Legado</a>
+      <a href="poems.html">Poemas</a>
+    </nav>
+  </div>
+
+  <main class="letter-stage">
+    <article class="letter-paper">
+      <h1 class="letter-heading">Carta-testamento de Rigoberto López Pérez a su madre</h1>
+
+      <p class="letter-date">San Salvador, Septiembre 4 de 1956</p>
+
+      <p class="letter-address">
+        Señora Soledad López<br>
+        Leon, Nicaragua
+      </p>
+
+      <div class="letter-body">
+        <p>Mi querida madre:</p>
+
+        <p>Aunque usted nunca lo ha sabido, yo siempre he andado tomando parte en todo lo que se refiere a atacar al régimen funesto de nuestra patria y en vista de que todos los esfuerzos han sido inútiles para tratar de lograr que Nicaragua vuelva a ser (o sea por primera vez) una patria libre, sin afrenta y sin mancha, he decidido aunque mis compañeros no querían aceptarlo, el tratar de ser yo el que inicie el principio del fin de esa tiranía. Si dios quiere que perezca en mi intento, no quiero que se culpe a nadie absolutamente, pues todo ha sido decision mía.</p>
+
+        <p>El Doctor Gerardo Godoy, que nos conoce muy bien a todos nosotros, ha quedado encargado, lo mismo que los demas paisanos residentes en ese pais, de ayudarla en todo lo que usted necesita. Como antes le habia contado, hace algun tiempo tome una poliza de vida por 10 mil colones con doble indemnizacion, o sean C 20 mil. Gerardo dara todas las vueltas para que ese dinero le sea entregado a usted, ya que esta a su nombre. Hay una salvedad en esto: Como usted save yo siempre he vivido en casa de la familia y quiero que de dicho dinero le sean entregado C 1,000 a la señorita Dina Andrade para que termine sus estudios, ya que posiblemente los tenga que abandonar por falta de recursos. Con Miriam Andrade de Rivera, hermana de ella y comadre mia, puede usted entenderse, ya que usted debera viajar a esta ciudad (San Salvador) en donde terminados los tramites legales, le entregaran el valor de dicha poliza. Como le dije anteriormente Gerardo y demas compañeros le daran todas las vueltas para el cobro de la mencionada poliza.</p>
+
+        <p>Espero que tomará todas esas cosas con calma y que debe pensar que lo que yo he hecho es un deber que cualquier nicaragüense que de veras quiera a su patria debía haber llevado a cabo hace mucho tiempo.Lo mío no ha sido un sacrificio sino un deber que espero haber cumplido. Si usted toma las cosas como yo las deseo, le digo que me sentiré feliz. Así que nada de tristeza que el deber que se cumple con la patria es la mayor satisfacción que debe llevarse un hombre de bien como yo he tratado de serlo. Si toma las cosas con serenidad y con la idea absoluta de que he cumplido con mi mas alto deber de nicaragüense, le estare muy agradecido.</p>
+
+        <p class="letter-signature">Su hijo que siempre la quiso mucho,</p>
+
+        <p>(firma) Rigoberto</p>
+      </div>
+    </article>
+    
+  </main>
+</body>
