@@ -467,6 +467,191 @@
       font-size: 1.2rem;
     }
 
+    #actividad-politica {
+      max-width: none;
+    }
+
+    #accion-de-1956 {
+      padding-top: clamp(3.5rem, 7vw, 5rem);
+      background: transparent;
+      color: #fff;
+    }
+
+    #accion-de-1956 h2,
+    #accion-de-1956 h3,
+    #reconocimiento h2,
+    #reconocimiento h3 {
+      color: #fff;
+    }
+
+    #carta {
+      max-width: none;
+      background: transparent;
+    }
+
+    #carta blockquote {
+      max-width: 49rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+    #frase {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    #reconocimiento {
+      background: transparent;
+      color: #fff;
+    }
+
+    #reconocimiento p {
+      max-width: 46rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    h3 {
+      margin-top: 2rem;
+      color: #d8cec3;
+      font-size: 1.125rem;
+    }
+
+    a {
+      color: #e8c99d;
+      font-weight: bold;
+    }
+
+    #presentacion h2,
+    #vida h2,
+    #trayectoria h2,
+    #poeta h2,
+    #actividad-politica h2,
+    #accion-de-1956 h2,
+    #carta h2,
+    #reconocimiento h2 {
+      color: #fff;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.65rem;
+    }
+
+    blockquote {
+      margin: 2rem 0 0;
+      padding: 1.5rem;
+      border-left: 3px solid #e8c99d;
+      background: rgb(43 41 39 / 35%);
+      font-size: 1.125rem;
+    }
+
+    blockquote p {
+      margin-top: 0;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      margin-left: 0;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      background: rgb(43 41 39 / 72%);
+      color: #fff;
+      font-size: 1rem;
+      border-top: 0.5rem solid #fff;
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        scroll-padding-top: 3.5rem;
+      }
+
+      .portrait-rail {
+        opacity: 1;
+        border: 0;
+      }
+
+      .portrait-rail::after {
+        background:
+          linear-gradient(180deg, rgb(43 41 39 / 40%), rgb(43 41 39 / 88%)),
+          linear-gradient(90deg, rgb(43 41 39 / 20%), transparent);
+      }
+
+      .topbar {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .topbar nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+
+      .topbar.nav-open nav {
+        display: flex;
+      }
+
+      .topbar nav a {
+        padding: 0.65rem 0;
+        width: 100%;
+      }
+
+      header {
+        margin-left: 0;
+        min-height: 70vh;
+        padding-top: 4rem;
+        background: transparent;
+      }
+
+      nav {
+        margin-bottom: 4rem;
+      }
+
+      #vida,
+      #poeta {
+        display: block;
+      }
+
+      section {
+        scroll-margin-top: 3.5rem;
+        padding: 3.5rem 0;
+      }
+
+      .poem-dialog {
+        width: calc(100% - 1rem);
+        max-height: 92vh;
+      }
+
+      .poem-dialog-content {
+        min-height: 48rem;
+        padding: 4rem 2.25rem;
+      }
+
+    }
+  
 </style>
 </head>
 <body>
