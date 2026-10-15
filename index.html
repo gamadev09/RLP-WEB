@@ -109,4 +109,53 @@
       </section>
     </article>
   </main>
+    <footer>
+    <p>Made </p>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add("js");
+
+    const sections = document.querySelectorAll("main section");
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    sections.forEach((section) => revealObserver.observe(section));
+
+  </script>
+  <script>
+    const topbar = document.querySelector(".topbar");
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    });
+
+    topbar.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      }
+    });
+  </script>
+</body>
 </html>
