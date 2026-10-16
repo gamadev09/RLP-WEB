@@ -347,5 +347,67 @@ Cuando parta en la fúnebre barca?</pre>
       <pre class="poem-text" id="poem-dialog-text"></pre>
     </div>
   </dialog>
+  <script>
+    const poemDialog = document.querySelector("#poem-dialog");
+    const poemTitle = document.querySelector("#poem-dialog-title");
+    const poemText = document.querySelector("#poem-dialog-text");
+    const poemClose = document.querySelector(".poem-close");
+
+    document.querySelectorAll(".poem-card").forEach((card) => {
+      const title = card.querySelector("h2").textContent;
+      const text = card.querySelector("pre").textContent;
+
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", `Abrir poema ${title}`);
+
+      const openPoem = () => {
+        poemTitle.textContent = title;
+        poemText.textContent = text;
+        poemDialog.showModal();
+        poemDialog.scrollTop = 0;
+      };
+
+      card.addEventListener("click", openPoem);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openPoem();
+        }
+      });
+    });
+
+    poemClose.addEventListener("click", () => poemDialog.close());
+    poemDialog.addEventListener("click", (event) => {
+      if (event.target === poemDialog) {
+        poemDialog.close();
+      }
+    });
+
+    const topbar = document.querySelector(".topbar");
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    });
+
+    topbar.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      }
+    });
+  </script>
 </body>
 </html>
