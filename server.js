@@ -6,7 +6,9 @@ const host = "127.0.0.1";
 const port = Number.parseInt(process.env.PORT || "4000", 10);
 
 const server = http.createServer((request, response) => {
-  if (request.method === "GET" && request.url === "/health") {
+  const requestPath = new URL(request.url || "/", `http://${request.headers.host || `${host}:${port}`}`).pathname;
+
+  if (request.method === "GET" && requestPath === "/health") {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify({ status: "ok" }));
     return;
@@ -15,19 +17,20 @@ const server = http.createServer((request, response) => {
   const pages = {
     "/": "index.html",
     "/index.html": "index.html",
-    "/carta-testamento.html": "carta-testamento.html",
-    "/poems.html": "poems.html"
+    "/carta.html": "carta.html",
+    "/poemas.html": "poemas.html",
+    "/bibliografia.html": "bibliografia.html"
   };
 
-  if (request.method === "GET" && pages[request.url]) {
-    const pagePath = path.join(__dirname, pages[request.url]);
+  if (request.method === "GET" && pages[requestPath]) {
+    const pagePath = path.join(__dirname, pages[requestPath]);
     const pageHtml = fs.readFileSync(pagePath, "utf8");
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     response.end(pageHtml);
     return;
   }
 
-  if (request.method === "GET" && request.url === "/public/rigoberto.jpeg") {
+  if (request.method === "GET" && requestPath === "/public/rigoberto.jpeg") {
     const imagePath = path.join(__dirname, "public", "rigoberto.jpeg");
     const image = fs.readFileSync(imagePath);
 
@@ -36,7 +39,7 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  if (request.method === "GET" && request.url === "/public/paperofpoem.webp") {
+  if (request.method === "GET" && requestPath === "/public/paperofpoem.webp") {
     const imagePath = path.join(__dirname, "public", "paperofpoem.webp");
     const image = fs.readFileSync(imagePath);
 

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+  <title>Bibliografía - Rigoberto López Pérez</title>
+  <style>
+    :root {
+      color: #2b2927;
+      background: #e8e1d9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background:
+        linear-gradient(rgb(43 41 39 / 64%), rgb(43 41 39 / 78%)),
+        url("public/rigoberto.jpeg") center / cover fixed no-repeat;
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem clamp(1.25rem, 4vw, 4rem);
+      background: rgb(43 41 39 / 100%);
+      border-bottom: 1px solid rgb(255 255 255 / 18%);
+      color: #fff;
+    }
+
+    .topbar-brand,
+    .topbar a {
+      color: #e8e1d9;
+      text-decoration: none;
+    }
+
+    .topbar-brand {
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .menu-toggle {
+      display: none;
+      padding: 0.45rem;
+      background: transparent;
+      border: 1px solid rgb(255 255 255 / 35%);
+      border-radius: 0.25rem;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .topbar nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1.25rem;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .topbar a:hover,
+    .topbar a:focus-visible {
+      color: #cdbda9;
+    }
+
+    main {
+      width: min(60rem, calc(100% - 2rem));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 8rem 0 4rem;
+    }
+
+    .bibliography-paper {
+      padding: clamp(2rem, 6vw, 4.5rem);
+      background: #fff;
+      box-shadow: 0 1.2rem 2rem rgb(0 0 0 / 28%);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      color: #282421;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .intro {
+      max-width: 42rem;
+      margin: 0 auto 2.5rem;
+      color: #5a514a;
+      text-align: center;
+    }
+
+    .references {
+      display: grid;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .reference {
+      padding-left: 2rem;
+      text-indent: -2rem;
+    }
+
+    .reference a {
+      color: #684f3e;
+      overflow-wrap: anywhere;
+    }
+
+    .reference a:hover,
+    .reference a:focus-visible {
+      color: #2b2927;
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .topbar nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        width: 100%;
+        margin-top: 0.75rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+
+      .topbar.nav-open nav {
+        display: flex;
+      }
+
+      .topbar nav a {
+        padding: 0.65rem 0;
+      }
+
+      main {
+        width: min(100% - 1rem, 60rem);
+        padding-top: 7rem;
+      }
+
+      .bibliography-paper {
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="topbar-brand" href="index.html">Rigoberto López Pérez</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation" aria-label="Abrir menú">
+      <span aria-hidden="true">☰</span>
+    </button>
+    <nav id="main-navigation" aria-label="Navegación principal">
+      <a href="index.html#presentacion">Presentación</a>
+      <a href="index.html#vida">Vida</a>
+      <a href="index.html#poeta">Poesía</a>
+      <a href="index.html#accion-de-1956">1956</a>
+      <a href="index.html#carta">Carta</a>
+      <a href="index.html#reconocimiento">Legado</a>
+      <a href="bibliografia.html">Bibliografía</a>
+    </nav>
+  </div>
+
+  <main>
+    <article class="bibliography-paper">
+      <h1>Referencias bibliográficas</h1>
+      <p class="intro">Fuentes consultadas sobre la vida, la obra poética y el legado de Rigoberto López Pérez.</p>
+      <ol class="references">
+        <li class="reference">Centro de Documentación de los Movimientos Armados. (1956, 4 de septiembre). <cite>Carta-testamento de Rigoberto López Pérez a su madre Soledad López</cite>. Archivo digitalizado CEDEMA. <a href="https://cedema.org/digital_items/4606" target="_blank" rel="noopener noreferrer">https://cedema.org/digital_items/4606</a></li>
+        <li class="reference">Junta de Gobierno de Reconstrucción Nacional. (1981, 28 de septiembre). <cite>Decreto No. 825: Declaración de Héroe Nacional al Poeta Rigoberto López Pérez</cite>. <cite>La Gaceta, Diario Oficial</cite>, (218). Justia Nicaragua. <a href="https://docs.nicaragua.justia.com/nacionales/decretos-ejecutivos/otorgamiento-del-titulo-de-heroe-nacional-a-rigoberto-lopez-perez-sep-28-1981.pdf" target="_blank" rel="noopener noreferrer">https://docs.nicaragua.justia.com/nacionales/decretos-ejecutivos/otorgamiento-del-titulo-de-heroe-nacional-a-rigoberto-lopez-perez-sep-28-1981.pdf</a></li>
+        <li class="reference">López Pérez, P. R. (1946). <cite>Confesión de un soldado</cite>. Archivo literario digital de El Poder de la Palabra. <a href="https://www.epdlp.com/texto.php?id2=19386" target="_blank" rel="noopener noreferrer">https://www.epdlp.com/texto.php?id2=19386</a></li>
+        <li class="reference">López Pérez, P. R. (1956). <cite>Poemario completo de Rigoberto López Pérez</cite>. Colección poética documental. Scribd. <a href="https://es.scribd.com/document/513671001/Poemario-Rigoberto-Lopez" target="_blank" rel="noopener noreferrer">https://es.scribd.com/document/513671001/Poemario-Rigoberto-Lopez</a></li>
+        <li class="reference">Ministerio de Defensa de Nicaragua. (s.f.). <cite>Poeta Rigoberto López Pérez: Vida, poesía y patriotismo</cite>. Dirección de Historia y Patrimonio Militar. <a href="https://www.midef.gob.ni/portfolio/poeta-rigoberto-lopez-perez/" target="_blank" rel="noopener noreferrer">https://www.midef.gob.ni/portfolio/poeta-rigoberto-lopez-perez/</a></li>
+        <li class="reference">Torres Lazo, A. (1990). <cite>La saga de los Somoza: Historia privada y política de una dinastía</cite>. Editorial Hispamer; Catálogo de la biblioteca de la URACCAN. <a href="https://cbiblioteca.uraccan.edu.ni/cgi-bin/koha/opac-detail.pl?biblionumber=22161" target="_blank" rel="noopener noreferrer">https://cbiblioteca.uraccan.edu.ni/cgi-bin/koha/opac-detail.pl?biblionumber=22161</a></li>
+      </ol>
+    </article>
+  </main>
+
+  <script>
+    const topbar = document.querySelector(".topbar");
+    const menuToggle = document.querySelector(".menu-toggle");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = topbar.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    });
+
+    topbar.querySelectorAll("nav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        topbar.classList.remove("nav-open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+      });
+    });
+  </script>
+</body>
+</html>
